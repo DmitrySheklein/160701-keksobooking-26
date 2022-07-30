@@ -65,8 +65,7 @@ map.on('load', async () => {
 const setDefaultView = () => {
   map.setView(
     {
-      lat: TokioCoordinate.lat,
-      lng: TokioCoordinate.lng,
+      ...TokioCoordinate,
     },
     10,
   );
@@ -79,8 +78,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 const mainMarker = L.marker(
   {
-    lat: TokioCoordinate.lat,
-    lng: TokioCoordinate.lng,
+    ...TokioCoordinate,
   },
   {
     draggable: true,
@@ -89,8 +87,7 @@ const mainMarker = L.marker(
 );
 const setMainMarkerDefault = () => {
   mainMarker.setLatLng({
-    lat: TokioCoordinate.lat,
-    lng: TokioCoordinate.lng,
+    ...TokioCoordinate,
   });
 };
 mainMarker.addTo(map);
