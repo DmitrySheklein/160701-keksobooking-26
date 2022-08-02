@@ -28,29 +28,23 @@ const markerGroup = L.layerGroup().addTo(map);
 
 adForm.disabled();
 filtersForm.disabled();
+
 const setDefaultCoordinate = () =>
   (addressInput.value = Object.values(TokioCoordinate).join());
 setDefaultCoordinate();
+
 const createMarker = (point) => {
-  const {
-    location: { lat, lng },
-  } = point;
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon: PinIcons.DEFAULT,
-    },
-  );
+  const { location } = point;
+  const marker = L.marker(location, {
+    icon: PinIcons.DEFAULT,
+  });
 
   marker.addTo(markerGroup).bindPopup(generateCard(point));
 };
 const closePopup = () => map.closePopup();
-const renderPoints = (points) => {
+const renderPoints = (points) =>
   points.filter((el, i) => i <= OFFERS_LENGTH).forEach(createMarker);
-};
+
 map.on('load', async () => {
   adForm.active();
 
@@ -62,10 +56,10 @@ map.on('load', async () => {
     renderPoints(points);
   }
 });
-const setDefaultView = () => {
-  map.setView(TokioCoordinate, 10);
-};
+
+const setDefaultView = () => map.setView(TokioCoordinate, 10);
 setDefaultView();
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -75,9 +69,8 @@ const mainMarker = L.marker(TokioCoordinate, {
   draggable: true,
   icon: PinIcons.MAIN,
 });
-const setMainMarkerDefault = () => {
-  mainMarker.setLatLng(TokioCoordinate);
-};
+const setMainMarkerDefault = () => mainMarker.setLatLng(TokioCoordinate);
+
 mainMarker.addTo(map);
 mainMarker.on('moveend', ({ target }) => {
   const currentCoordinate = target.getLatLng();
