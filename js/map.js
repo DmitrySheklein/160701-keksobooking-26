@@ -63,13 +63,7 @@ map.on('load', async () => {
   }
 });
 const setDefaultView = () => {
-  map.setView(
-    {
-      lat: TokioCoordinate.lat,
-      lng: TokioCoordinate.lng,
-    },
-    10,
-  );
+  map.setView(TokioCoordinate, 10);
 };
 setDefaultView();
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -77,21 +71,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-const mainMarker = L.marker(
-  {
-    lat: TokioCoordinate.lat,
-    lng: TokioCoordinate.lng,
-  },
-  {
-    draggable: true,
-    icon: PinIcons.MAIN,
-  },
-);
+const mainMarker = L.marker(TokioCoordinate, {
+  draggable: true,
+  icon: PinIcons.MAIN,
+});
 const setMainMarkerDefault = () => {
-  mainMarker.setLatLng({
-    lat: TokioCoordinate.lat,
-    lng: TokioCoordinate.lng,
-  });
+  mainMarker.setLatLng(TokioCoordinate);
 };
 mainMarker.addTo(map);
 mainMarker.on('moveend', ({ target }) => {
