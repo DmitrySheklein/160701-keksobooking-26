@@ -75,21 +75,11 @@ const filterOffers = (offers) => {
   };
 
   const onMapFiltersChange = ({ target }) => {
-    const element = target;
-    const value = element.value;
-    const id = element.id;
+    const value = target.value;
+    const id = target.id;
     const isCheckbox = target.type === 'checkbox';
-    const isCheckboxChecked = element.checked;
 
-    if (isCheckbox) {
-      if (isCheckboxChecked) {
-        filtersDefaultsConfig[id] = value;
-      } else {
-        filtersDefaultsConfig[id] = false;
-      }
-    } else {
-      filtersDefaultsConfig[id] = value;
-    }
+    filtersDefaultsConfig[id] = isCheckbox ? target.checked : value;
 
     markerGroup.clearLayers();
     const sortData = filtering(filtersDefaultsConfig, offers);
